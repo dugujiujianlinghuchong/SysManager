@@ -106,9 +106,12 @@
       <br>
       <!-- 步骤条 -->
       <el-steps :active="active" process-status='wait' align-center>
-        <el-step title="第一步" @click.native="active=1" description="定义实体"></el-step>
-        <el-step title="第二步" @click.native="active=2" description="为实体添加字段"></el-step>
-        <el-step title="第三步" @click.native="active=3" description="为实体添加关联"></el-step>
+        <!-- <el-step title="第一步" @click.native="active=1" description="定义实体"></el-step> -->
+        <el-step title="第一步" description="定义实体"></el-step>
+        <!-- <el-step title="第二步" @click.native="active=2" description="为实体添加字段"></el-step> -->
+        <el-step title="第二步" description="为实体添加字段"></el-step>
+        <!-- <el-step title="第三步" @click.native="active=3" description="为实体添加关联"></el-step> -->
+        <el-step title="第三步" description="为实体添加关联"></el-step>
       </el-steps>
       <!-- 取消/确定 -->
       <div slot="footer" class="dialog-footer">
@@ -168,6 +171,7 @@ export default {
       dialogTitle: "",
       rowIndex: "",
       form1: {
+        STMC_ZH: "",
         STMC: "",
         STSM: ""
       },
@@ -206,6 +210,20 @@ export default {
       },
       deep: true
     },
+    // form1: {
+    //   // 监听第一步表单数据是否为空
+    //   handler(newVal, oldVal) {
+    //     for (const key in newVal) {
+    //       if (newVal[key] == '') {
+    //         this.nextDisabled = true;
+    //         break
+    //       } else {
+    //         this.nextDisabled = false;
+    //       }
+    //     }
+    //   },
+    //   deep: true
+    // },
     active(newVal) {
       if (newVal != 1) {
         this.backDisabled = false;
@@ -240,13 +258,40 @@ export default {
 
       switch (this.active) {
         case 1:
-          this.submitForm1();
+          let validResult = true;
+          for (const key in this.form1) {
+            if (this.form1[key] == "") {
+              this.$alert("信息填写不完整，无法进入下一步！", "提示", {
+                confirmButtonText: "确定"
+              });
+              validResult = false;
+              break;
+            }
+          }
+          if (validResult == true) {
+            this.submitForm1();
+            this.active++;
+          }
+          break;
+        case 2:
+          let validResult2 = true;
+          if (this.gridData.length == 0) {
+            this.$alert("信息填写不完整，无法进入下一步！", "提示", {
+              confirmButtonText: "确定"
+            });
+            validResult2 = false;
+          }
+          if (validResult2 == true) {
+            this.submitForm1();
+            this.active++;
+          }
           break;
         default:
           break;
       }
 
-      this.active++;
+      // this.active++;
+      // this.nextDisabled = true;
     },
     // 新增行
     handleAdd(index, row) {
@@ -353,7 +398,7 @@ div .panel {
 .stepPage {
   height: 300px;
 }
-.el-step {
-  cursor: pointer;
-}
+// .el-step {
+//   cursor: pointer;
+// }
 </style>
