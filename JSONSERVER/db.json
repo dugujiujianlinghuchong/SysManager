@@ -1,0 +1,61 @@
+{
+  "users": [
+    {
+      "name": "yt",
+      "phone": "fasdfasfd",
+      "email": "asdfasfd",
+      "education": "fasdfasfd",
+      "graduationschool": "fasfasdf",
+      "profession": "sdfasdfafd",
+      "profile": "asdfasdf",
+      "id": 3
+    }
+  ],
+  "companies": [
+    {
+      "id": 1,
+      "name": "Apple",
+      "description": "Apple is good!"
+    },
+    {
+      "id": 2,
+      "name": "Microsoft",
+      "description": "Microsoft is good!"
+    },
+    {
+      "id": 3,
+      "name": "Google",
+      "description": "Google is good!"
+    }
+  ],
+  "tableData": [
+    {
+      "id": 0,
+      "STBH": "0",
+      "STMC_ZH": "实体0",
+      "STMC_EN": "ST0",
+      "BZ": "这是实体0"
+    },
+    {
+      "id": 1,
+      "STBH": "1",
+      "STMC_ZH": "实体1",
+      "STMC_EN": "ST1",
+      "BZ": "这是实体1"
+    },
+    {
+      "id": 2,
+      "STBH": "2",
+      "STMC_ZH": "实体2",
+      "STMC_EN": "ST2",
+      "BZ": "这是实体2"
+    },
+    {
+      "id": 3,
+      "STBH": "3",
+      "STMC_ZH": "实体3",
+      "STMC_EN": "ST3",
+      "BZ": "这是实体3"
+    }
+  ]
+}
