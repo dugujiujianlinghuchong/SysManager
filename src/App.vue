@@ -146,9 +146,9 @@ export default {
       //     vueThis.$store.commit("getSystemInfo", systemInfo);
       //   });
       vueThis.$get(
-        "http://localhost/Gateway4CWGL/MinaMap_TYService.svc/ValidateUserInfo", 
+        "http://localhost/Gateway4CWGL/MinaMap_TYService.svc/ValidateUserInfo",
         vueThis.account,
-        (data) => {
+        data => {
           if (data == "") {
             vueThis.$alert("用户名或密码错误，请检查后重试！", "提示", {
               confirmButtonText: "确定"
@@ -163,7 +163,7 @@ export default {
           systemInfo.screenWidth = document.body.offsetWidth;
           vueThis.$store.commit("getSystemInfo", systemInfo);
         }
-      )
+      );
     },
     addTab(targetName, title, content, closable) {
       for (var i = 0; i < this.editableTabs.length; i++) {

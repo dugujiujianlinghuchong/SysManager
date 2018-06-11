@@ -114,7 +114,7 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="back" :disabled='backDisabled'>上一步</el-button>
         <el-button @click="next" :disabled='nextDisabled'>下一步</el-button>
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button @click="submitDialogForm">取 消</el-button>
         <el-button type="primary" @click="submitDialogForm" :disabled='submitDisabled'>确 定</el-button>
       </div>
       <!-- 内嵌对话框 -->
@@ -157,68 +157,7 @@ export default {
   data() {
     return {
       innerVisible: false,
-      gridData: [
-        // {
-        //   date: "2016-05-02",
-        //   name: "王小虎",
-        //   address: "上海市"
-        // },
-        // {
-        //   date: "2016-05-04",
-        //   name: "王小虎",
-        //   address: "上海市"
-        // },
-        // {
-        //   date: "2016-05-01",
-        //   name: "王小虎",
-        //   address: "上海市"
-        // },
-        // {
-        //   date: "2016-05-03",
-        //   name: "王小虎",
-        //   address: "上海市"
-        // },
-        // {
-        //   date: "2016-05-01",
-        //   name: "王小虎",
-        //   address: "上海市"
-        // },
-        // {
-        //   date: "2016-05-01",
-        //   name: "王小虎",
-        //   address: "上海市"
-        // },
-        // {
-        //   date: "2016-05-01",
-        //   name: "王小虎",
-        //   address: "上海市"
-        // },
-        // {
-        //   date: "2016-05-01",
-        //   name: "王小虎",
-        //   address: "上海市"
-        // },
-        // {
-        //   date: "2016-05-01",
-        //   name: "王小虎",
-        //   address: "上海市"
-        // },
-        // {
-        //   date: "2016-05-01",
-        //   name: "王小虎",
-        //   address: "上海市"
-        // },
-        // {
-        //   date: "2016-05-01",
-        //   name: "王小虎",
-        //   address: "上海市"
-        // },
-        // {
-        //   date: "2016-05-01",
-        //   name: "王小虎",
-        //   address: "上海市"
-        // },
-      ],
+      gridData: [],
       active: 1,
       backDisabled: true,
       nextDisabled: false,
@@ -301,7 +240,7 @@ export default {
 
       switch (this.active) {
         case 1:
-          this.submitForm1()
+          this.submitForm1();
           break;
         default:
           break;
@@ -338,18 +277,22 @@ export default {
     },
     // 提交对话框表单
     submitDialogForm() {
-      alert(1);
+      let vueThis = this;
+      vueThis.$post("http://localhost:3000/tableData", vueThis.form1, data => {
+        console.log(data);
+      });
       this.dialogFormVisible = false;
     },
     // 提交第一步表单
     submitForm1() {
       let vueThis = this;
-      console.log(vueThis.form1);
-      vueThis.$http
-        .post("http://localhost/Gateway4CWGL/MinaMap_TYService.svc/SaveSTXX",vueThis.form1)
-        .then(function(response) {
-          console.log(response);
-        });
+      vueThis.$post(
+        "http://localhost/Gateway4CWGL/MinaMap_TYService.svc/SaveSTXX",
+        vueThis.form1,
+        data => {
+          console.log(data);
+        }
+      );
     },
     // 改变页码
     handleCurrentChange(val) {
