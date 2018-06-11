@@ -125,26 +125,6 @@ export default {
   methods: {
     handleLogin() {
       var vueThis = this;
-      // vueThis.$http
-      //   .get(
-      //     "http://localhost/Gateway4CWGL/MinaMap_TYService.svc/ValidateUserInfo",
-      //     { params: vueThis.account }
-      //   )
-      //   .then(function(response) {
-      //     if (response.data == "") {
-      //       vueThis.$alert("用户名或密码错误，请检查后重试！", "提示", {
-      //         confirmButtonText: "确定"
-      //       });
-      //     }
-      //     vueThis.yhbh = response.data.YHBH;
-      //     vueThis.dlm = response.data.XTDLM;
-
-      //     // 将系统信息写入Vuex
-      //     var systemInfo = {};
-      //     systemInfo.yhbh = vueThis.yhbh;
-      //     systemInfo.screenWidth = document.body.offsetWidth;
-      //     vueThis.$store.commit("getSystemInfo", systemInfo);
-      //   });
       vueThis.$get(
         "http://localhost/Gateway4CWGL/MinaMap_TYService.svc/ValidateUserInfo",
         vueThis.account,
