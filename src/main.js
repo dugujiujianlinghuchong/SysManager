@@ -11,7 +11,7 @@ promise.polyfill();
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 // 引入vuex配置
-import {store} from './utils/vuex'
+import { store } from './utils/vuex'
 
 Vue.use(ElementUI)
 // Vue.use(VueRouter)

@@ -58,7 +58,7 @@
         <div class="stepPage">
           <el-button type="primary" size="mini" @click="innerVisible = true">添加字段</el-button>
           <br><br>
-          <el-table :data="gridData" size='mini' border height='240'>
+          <el-table :data="gridData" size='mini' border height='240' empty-text='至少添加一个字段'>
             <el-table-column label="操作" align="center" width="150">
               <template slot-scope="scope">
                 <el-button size="mini" type="primary">编辑</el-button>

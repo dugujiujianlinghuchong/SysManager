@@ -6,7 +6,7 @@
         <h1>后台定制系统</h1>
         <div class="toolbar">
           <el-dropdown>
-            <i class="el-icon-setting" style="margin-right: 15px;margin-left: 15px"></i>
+            <i class="el-icon-menu"></i>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
                 <span @click="yhbh=''">退出系统</span>
@@ -207,6 +207,7 @@ export default {
     height: 8% !important;
     overflow: hidden;
     // padding: 0;
+    // padding-left: 20px;
     display: -webkit-flex; /* Safari */
     display: flex;
     align-items: center;
@@ -218,8 +219,14 @@ export default {
       color: #ffffff;
     }
     .toolbar {
-      width: 120px;
+      width: 80px;
       color: #ffffff;
+      .el-icon-menu {
+        margin-right: 15px;
+        margin-left: 15px;
+        color:white;
+        cursor:pointer;
+      }
     }
   }
   #left {
