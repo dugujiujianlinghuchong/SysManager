@@ -18,7 +18,7 @@
       </el-header>
       <!-- 左栏 -->
       <el-col id="left" :xs="7" :sm="6" :md="5" :lg="3" :xl="3">
-        <div class="grid-content bg-purple" >
+        <div class="grid-content bg-purple">
             <!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
               <el-radio-button :label="false">展开</el-radio-button>
               <el-radio-button :label="true">收起</el-radio-button>
@@ -224,8 +224,8 @@ export default {
       .el-icon-menu {
         margin-right: 15px;
         margin-left: 15px;
-        color:white;
-        cursor:pointer;
+        color: white;
+        cursor: pointer;
       }
     }
   }

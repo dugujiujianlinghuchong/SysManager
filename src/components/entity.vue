@@ -42,14 +42,14 @@
       <!-- 第一步 -->
       <el-form :model="form1" v-if="active==1">
         <div class="stepPage">
-          <el-form-item label="实体名称(中文)" :label-width="formLabelWidth" required>
-            <el-input v-model="form1.STMC_ZH" auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="实体名称(英文)" :label-width="formLabelWidth" required>
+          <el-form-item label="实体名称" :label-width="formLabelWidth" required>
             <el-input v-model="form1.STMC" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item label="实体说明" :label-width="formLabelWidth" required>
             <el-input v-model="form1.STSM" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="备注" :label-width="formLabelWidth">
+            <el-input v-model="form1.BZ" auto-complete="off"></el-input>
           </el-form-item>
         </div>
       </el-form>
@@ -65,13 +65,46 @@
                 <el-button size="mini" type="danger">删除</el-button>
               </template>
             </el-table-column>
-            <el-table-column property="ZDMC_ZH" label="字段名称(中文)"></el-table-column>
-            <el-table-column property="ZDMC_EN" label="字段名称(英文)"></el-table-column>
+            <el-table-column property="ZDMC_ZH" label="字段名称(中)"></el-table-column>
+            <el-table-column property="ZDMC_EN" label="字段名称(英)"></el-table-column>
             <el-table-column property="ZDSJLX" label="数据类型"></el-table-column>
+            <el-table-column property="SJDW" label="数据单位"></el-table-column>
             <el-table-column property="ZDCD" label="长度"></el-table-column>
             <el-table-column property="ZDBZ" label="备注"></el-table-column>
           </el-table>
         </div>
+        <!-- 内嵌对话框 -->
+        <el-dialog width="30%" title="添加字段" :visible.sync="innerVisible" append-to-body>
+          <el-form :model="form2">
+            <el-form-item label="字段名称(中文)" :label-width="formLabelWidth" required>
+              <el-input v-model="form2.XSMC" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="字段名称(英文)" :label-width="formLabelWidth" required>
+              <el-input v-model="form2.ZDMC" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="数据类型" :label-width="formLabelWidth" required>
+              <el-select v-model="form2.ZDLX">
+                <el-option label="string" value="string"></el-option>
+                <el-option label="int" value="int"></el-option>
+                <el-option label="datetime" value="datetime"></el-option>
+                <el-option label="numeric" value="numeric"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="数据单位" :label-width="formLabelWidth" required>
+              <el-input v-model="form2.SJDW" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="长度" :label-width="formLabelWidth" required>
+              <el-input v-model="form2.ZDCD" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="备注" :label-width="formLabelWidth">
+              <el-input v-model="form2.BZ" auto-complete="off"></el-input>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="innerVisible = false" size="mini">取 消</el-button>
+            <el-button type="primary" size="mini" @click="submitForm2">确 定</el-button>
+          </div>
+        </el-dialog>
       </el-form>
       <!-- 第三步 -->
       <el-form :model="form3" v-if="active==3">
@@ -120,35 +153,6 @@
         <el-button @click="submitDialogForm">取 消</el-button>
         <el-button type="primary" @click="submitDialogForm" :disabled='submitDisabled'>确 定</el-button>
       </div>
-      <!-- 内嵌对话框 -->
-      <el-dialog width="30%" title="添加字段" :visible.sync="innerVisible" append-to-body>
-        <el-form :model="form2">
-          <el-form-item label="字段名称(中文)" :label-width="formLabelWidth">
-            <el-input v-model="form2.STMC_ZH" auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="字段名称(英文)" :label-width="formLabelWidth">
-            <el-input v-model="form2.STMC_EN" auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="数据类型" :label-width="formLabelWidth">
-            <el-select v-model="form2.ZDLX">
-              <el-option label="string" value="string"></el-option>
-              <el-option label="int" value="int"></el-option>
-              <el-option label="datetime" value="datetime"></el-option>
-              <el-option label="numeric" value="numeric"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="长度" :label-width="formLabelWidth">
-            <el-input v-model="form2.STMC_EN" auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="备注" :label-width="formLabelWidth">
-            <el-input v-model="form2.BZ" auto-complete="off"></el-input>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="innerVisible = false" size="mini">取 消</el-button>
-          <el-button type="primary" size="mini">确 定</el-button>
-        </div>
-      </el-dialog>
     </el-dialog>
   </div>
 </template>
@@ -170,14 +174,21 @@ export default {
       dialogFormVisible: false,
       dialogTitle: "",
       rowIndex: "",
+      STBH: '',// 实体编号
       form1: {
-        STMC_ZH: "",
         STMC: "",
-        STSM: ""
+        STSM: "",
+        BZ: ""
       },
       form2: {
-        STMC: "",
-        STSM: ""
+        // ID: 0,
+        XSMC: "",
+        ZDMC: "",
+        ZDLX: "",
+        SJDW: "",
+        ZDCD: "",
+        BZ: "",
+        STBH: ""
       },
       form3: {
         STMC: "",
@@ -335,9 +346,22 @@ export default {
         "http://localhost/Gateway4CWGL/MinaMap_TYService.svc/SaveSTXX",
         vueThis.form1,
         data => {
+          vueThis.STBH = data;
+        }
+      );
+    },
+    // 提交第二步表单
+    submitForm2() {
+      let vueThis = this;
+      vueThis.form2.STBH = vueThis.STBH;
+      vueThis.$post(
+        "http://localhost/Gateway4CWGL/MinaMap_TYService.svc/SaveSTJGDY",
+        vueThis.form2,
+        data => {
           console.log(data);
         }
       );
+      // this.innerVisible = false
     },
     // 改变页码
     handleCurrentChange(val) {
@@ -373,7 +397,7 @@ export default {
     }
   },
   created() {
-    this.getTableData();
+    // this.getTableData();
   }
 };
 </script>
