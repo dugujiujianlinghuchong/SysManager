@@ -111,19 +111,11 @@
         <div class="stepPage">
            <el-form-item label="当前实体字段" :label-width="formLabelWidth" required>
             <el-select v-model="form3.ZDLX1">
-              <el-option label="实体0" value="ST0"></el-option>
-              <el-option label="实体1" value="ST1"></el-option>
-              <el-option label="实体2" value="ST2"></el-option>
-              <el-option label="实体3" value="ST3"></el-option>
+              <el-option label="字段1" value="ZD1"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="外部实体字段" :label-width="formLabelWidth" required>
-            <el-select v-model="form3.ZDLX2">
-              <el-option label="外部实体0" value="ST0"></el-option>
-              <el-option label="外部实体1" value="ST1"></el-option>
-              <el-option label="外部实体2" value="ST2"></el-option>
-              <el-option label="外部实体3" value="ST3"></el-option>
-            </el-select>
+            <el-cascader v-model="form3.ZDLX2" :options="optionsOfWBST" @active-item-change="handleItemChange" :props="props"></el-cascader>
           </el-form-item>
           <el-form-item label="关联类型" :label-width="formLabelWidth" required>
             <el-select v-model="form3.ZDLX3">
@@ -163,6 +155,20 @@ import Keywords from "./searchInputs/keywords";
 export default {
   data() {
     return {
+      optionsOfWBST: [
+        {
+          label: "实体1",
+          cities: []
+        },
+        {
+          label: "实体2",
+          cities: []
+        }
+      ],
+      props: {
+        value: "label",
+        children: "cities"
+      },
       innerVisible: false,
       gridData: [],
       active: 1,
@@ -174,7 +180,7 @@ export default {
       dialogFormVisible: false,
       dialogTitle: "",
       rowIndex: "",
-      STBH: '',// 实体编号
+      STBH: "", // 实体编号
       form1: {
         STMC: "",
         STSM: "",
@@ -260,6 +266,28 @@ export default {
     }
   },
   methods: {
+    // 级联选择器获取第二级数据
+    handleItemChange(val) {
+      console.log("active item:", val);
+      setTimeout(_ => {
+        if (val.indexOf("实体1") > -1 && !this.optionsOfWBST[0].cities.length) {
+          this.optionsOfWBST[0].cities = [
+            {
+              label: "字段1"
+            }
+          ];
+        } else if (
+          val.indexOf("实体2") > -1 &&
+          !this.optionsOfWBST[1].cities.length
+        ) {
+          this.optionsOfWBST[1].cities = [
+            {
+              label: "字段1"
+            }
+          ];
+        }
+      }, 300);
+    },
     back() {
       if (this.active == 1) return;
       this.active--;
@@ -286,14 +314,13 @@ export default {
           break;
         case 2:
           let validResult2 = true;
-          if (this.gridData.length == 0) {
-            this.$alert("信息填写不完整，无法进入下一步！", "提示", {
-              confirmButtonText: "确定"
-            });
-            validResult2 = false;
-          }
+          // if (this.gridData.length == 0) {
+          //   this.$alert("信息填写不完整，无法进入下一步！", "提示", {
+          //     confirmButtonText: "确定"
+          //   });
+          //   validResult2 = false;
+          // }
           if (validResult2 == true) {
-            this.submitForm1();
             this.active++;
           }
           break;
@@ -358,10 +385,9 @@ export default {
         "http://localhost/Gateway4CWGL/MinaMap_TYService.svc/SaveSTJGDY",
         vueThis.form2,
         data => {
-          console.log(data);
+          if (data == "true:保存成功") vueThis.innerVisible = false;
         }
       );
-      // this.innerVisible = false
     },
     // 改变页码
     handleCurrentChange(val) {
