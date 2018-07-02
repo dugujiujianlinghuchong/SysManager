@@ -117,15 +117,14 @@ export default {
     },
     // 获取员工工资信息
     getAllMemberSalary() {
-      var vueThis = this;
-      vueThis.tableHead = [];
-      vueThis.tableData = [];
+      this.tableHead = [];
+      this.tableData = [];
 
       // 获取表头信息
-      vueThis.$http
+      this.$http
         .get(
           "http://localhost/Gateway4CWGL/MinaMap_CWGLService.svc/GetAllGZX_ByGZMBLX",
-          { params: { strGZMBMC: vueThis.searchField.gzmbmc } }
+          { params: { strGZMBMC: this.searchField.gzmbmc } }
         )
         .then(function(response) {
           var data = response.data;
@@ -138,23 +137,23 @@ export default {
             obj["fixed"] = false;
             tableHead.push(obj);
           });
-          vueThis.tableHead = tableHead;
-          vueThis.tableHead.unshift({
+          this.tableHead = tableHead;
+          this.tableHead.unshift({
             prop: "S_GZHJ",
             label: "工资总计",
             fixed: true
           });
-          vueThis.tableHead.unshift({
+          this.tableHead.unshift({
             prop: "D_BMMC",
             label: "部门名称",
             fixed: false
           });
-          vueThis.tableHead.unshift({
+          this.tableHead.unshift({
             prop: "S_YGBH",
             label: "员工编号",
             fixed: false
           });
-          vueThis.tableHead.unshift({
+          this.tableHead.unshift({
             prop: "S_XM",
             label: "姓名",
             fixed: true
@@ -162,10 +161,10 @@ export default {
         });
 
       // 获取工资数据
-      vueThis.$http
+      this.$http
         .get(
           "http://localhost/Gateway4CWGL/MinaMap_CWGLService.svc/GetAllMember_GZB_ByBMBH",
-          { params: vueThis.searchField }
+          { params: this.searchField }
         )
         .then(function(response) {
           var tableData = response.data;
@@ -175,7 +174,7 @@ export default {
             item.forEach(function(innerItem) {
               obj[innerItem.Key] = innerItem.Value;
             });
-            vueThis.tableData.push(obj);
+            this.tableData.push(obj);
           });
         });
     }

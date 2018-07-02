@@ -25,15 +25,14 @@ export default {
   },
   methods: {
     getOptionList() {
-      var vueThis = this;
-      vueThis.$http
+      this.$http
         .get(
           "http://localhost/Gateway4CWGL/MinaMap_UserService.svc/Get_All_DWXX",
-          { params: { yhbh: vueThis.yhbh } }
+          { params: { yhbh: this.yhbh } }
         )
         .then(function(response) {
-          vueThis.optionsOfSelector = response.data;
-          vueThis.input_value = vueThis.optionsOfSelector[0].DWBH;
+          this.optionsOfSelector = response.data;
+          this.input_value = this.optionsOfSelector[0].DWBH;
         });
     },
     changeValue() {

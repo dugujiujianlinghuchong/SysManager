@@ -24,12 +24,11 @@ export default {
   },
   methods: {
     getOptionList() {
-      var vueThis = this;
-      vueThis.$http
+      this.$http
         .get("http://localhost/Gateway4CWGL/MinaMap_CWGLService.svc/GetAllGZMB")
         .then(function(response) {
-          vueThis.optionsOfSelector = response.data;
-          vueThis.input_value = vueThis.optionsOfSelector[0].MC;
+          this.optionsOfSelector = response.data;
+          this.input_value = this.optionsOfSelector[0].MC;
         });
     },
     changeValue() {

@@ -5,11 +5,7 @@ import Axios from 'axios'
 Vue.prototype.$http = Axios
 // GET请求方法
 Vue.prototype.$get = function (address, params, func) {
-    Axios({
-        method: 'get',
-        url: address,
-        data: params
-    })
+    Axios.get(address, { params: params })
         .then((res) => {
             func(res.data);
         })

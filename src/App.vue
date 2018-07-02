@@ -124,24 +124,23 @@ export default {
   },
   methods: {
     handleLogin() {
-      var vueThis = this;
-      vueThis.$get(
+      this.$get(
         "http://localhost/Gateway4CWGL/MinaMap_TYService.svc/ValidateUserInfo",
-        vueThis.account,
+        this.account,
         data => {
           if (data == "") {
-            vueThis.$alert("用户名或密码错误，请检查后重试！", "提示", {
+            this.$alert("用户名或密码错误，请检查后重试！", "提示", {
               confirmButtonText: "确定"
             });
           }
-          vueThis.yhbh = data.YHBH;
-          vueThis.dlm = data.XTDLM;
+          this.yhbh = data.YHBH;
+          this.dlm = data.XTDLM;
 
           // 将系统信息写入Vuex
           var systemInfo = {};
-          systemInfo.yhbh = vueThis.yhbh;
+          systemInfo.yhbh = this.yhbh;
           systemInfo.screenWidth = document.body.offsetWidth;
-          vueThis.$store.commit("getSystemInfo", systemInfo);
+          this.$store.commit("getSystemInfo", systemInfo);
         }
       );
     },

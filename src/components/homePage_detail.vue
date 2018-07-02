@@ -129,26 +129,24 @@ export default {
   },
   methods: {
     getStaffInfo() {
-      var vueThis = this;
-      vueThis.$http
+      this.$http
         .get(
           "http://localhost/Gateway4CWGL/MinaMap_CWGLService.svc/GetAMemberInfoByLSXX",
-          { params: vueThis.searchFiled }
+          { params: this.searchFiled }
         )
         .then(function(response) {
-          vueThis.staffInfo = response.data;
+          this.staffInfo = response.data;
         });
     },
     getSalaryInfo() {
-      var vueThis = this;
-      vueThis.$http
+      this.$http
         .get(
           "http://localhost/Gateway4CWGL/MinaMap_CWGLService.svc/GetAMemberGZB_View",
-          { params: vueThis.searchFiled }
+          { params: this.searchFiled }
         )
         .then(function(response) {
-          vueThis.tableData = response.data;
-          console.log(vueThis.tableData);
+          this.tableData = response.data;
+          console.log(this.tableData);
         });
     }
   },

@@ -24,17 +24,16 @@ export default {
   },
   methods: {
     getOptionList() {
-      var vueThis = this;
-      vueThis.$http
+      this.$http
         .get(
           "http://localhost/Gateway4CWGL/MinaMap_CWGLService.svc/GetGZBNDList"
         )
         .then(function(response) {
-          vueThis.optionsOfSelector = response.data;
-          vueThis.optionsOfSelector = vueThis.optionsOfSelector.filter(item => {
+          this.optionsOfSelector = response.data;
+          this.optionsOfSelector = this.optionsOfSelector.filter(item => {
             return item.MC != "";
           });
-          vueThis.input_value = vueThis.optionsOfSelector[0].MC;
+          this.input_value = this.optionsOfSelector[0].MC;
         });
     },
     changeValue() {
